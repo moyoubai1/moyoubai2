@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信红包封面测试页面</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 统一的 Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#E64340', // 微信红包红色
+            secondary: '#FFC72C', // 金色
+            light: '#FFF8F0', // 浅橙色背景
+            dark: '#333333', // 深色文字
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .text-shadow-lg {
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+  </style>
+</head>
+<body class="bg-light min-h-screen font-sans text-dark">
+  <!-- 顶部导航 -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <i class="fa fa-envelope text-primary text-2xl mr-2"></i>
+        <h1 class="text-xl md:text-2xl font-bold text-primary">微信红包封面 - 测试页面</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="index.html" class="text-primary hover:text-red-700 transition-colors">
+          <i class="fa fa-home text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">微信红包封面测试</h2>
+    
+    <div class="bg-white bg-white rounded-xl shadow shadow shadow shadow-lg p-6 mb-8">
+      <h3 class="text-xl font-bold mb-4">功能测试</h3>
+      <div class="grid grid grid grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex items-center">
+          <input type="checkbox" id="test1" class="mr-2">
+          <label for="test1">封面卡片展示</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test2" class="mr-2">
+          <label for="test2">详情查看功能</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test3" class="mr-2">
+          <label for="test3">3D预览功能</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test4" class="mr-2">
+          <label for="test4">收藏功能</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test5" class="mr-2">
+          <label for="test5">分享功能</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test6" class="mr-2">
+          <label for="test6">兑换链接功能</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test7" class="mr-2">
+          <label for="test7">主题切换功能</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="test8" class="mr-2">
+          <label for="test8">响应式设计</label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+      <h3 class="text-xl font-bold mb-4">红包封面图片测试</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <!-- 红包封面1 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/67e39cd6dc3e4682a4d1ef990aaa61cb.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=KNeQzrMyB6sAMHCJpLn5D9o%2BZIo%3D" 
+               alt="可爱猫咪红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">可爱猫咪</p>
+          <p class="text-xs text-gray-500">ID: 1</p>
+        </div>
+        
+        <!-- 红包封面2 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/fb1083cf63864de29b96343183f3b27a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=PiRl19UlBkeqVnKsI6YFTuuq%2Fh4%3D" 
+               alt="邮票花卉红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">邮票花卉</p>
+          <p class="text-xs text-gray-500">ID: 2</p>
+        </div>
+        
+        <!-- 红包封面3 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ee0cac3549ba476eb16d5baa4c4b78ec.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=YE3KmlgLTuS91XpiI8tTQPd%2FIIc%3D" 
+               alt="可爱兔子红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">可爱兔子</p>
+          <p class="text-xs text-gray-500">ID: 3</p>
+        </div>
+        
+        <!-- 红包封面4 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ca69e7ca1fb7472bbd6b53f766148be6.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=yaVqZBSN7uBGjStdY%2BaGU%2FBPP98%3D" 
+               alt="荔枝吉祥红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">荔枝吉祥</p>
+          <p class="text-xs text-gray-500">ID: 4</p>
+        </div>
+        
+        <!-- 红包封面5 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/2752594390cd42f4a1e89ccd76dbb657.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=dRkXuWpFgciM4DG6lMJH%2FO6Ldgw%3D" 
+               alt="红色福字红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">红色福字</p>
+          <p class="text-xs text-gray-500">ID: 5</p>
+        </div>
+        
+        <!-- 红包封面6 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/5596d4d36bcb4db7b78d67b5ac23e184.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=qhBEVz2egChaN%2BuY5EpWfSB%2B%2FOs%3D" 
+               alt="金色福字红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">金色福字</p>
+          <p class="text-xs text-gray-500">ID: 6</p>
+        </div>
+        
+        <!-- 红包封面7 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/928021fa624c460394fc8403da6f2a9a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=29YOY6ScMGsuScM3vsihGsO5uTI%3D" 
+               alt="可爱小鹿红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">可爱小鹿</p>
+          <p class="text-xs text-gray-500">ID: 7</p>
+        </div>
+        
+        <!-- 红包封面8 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/3f3da109358443e98cd4740e027b772e.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=H0PH%2Bx7n5NAI92xKzYUaf6SKSUk%3D" 
+               alt="金色福字红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">金色福字</p>
+          <p class="text-xs text-gray-500">ID: 8</p>
+        </div>
+        
+        <!-- 红包封面9 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/7e63b57fd0d8469aa06d983600a4d61a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=mWVIdCEgei%2BSGGSEDncegGx3OWo%3D" 
+               alt="金色福字红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">金色福字</p>
+          <p class="text-xs text-gray-500">ID: 9</p>
+        </div>
+        
+        <!-- 红包封面10 -->
+        <div class="border rounded-lg p-3 text-center">
+          <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/668640f03bbd427e89edf083b6e39433.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=wj9ocMSZ6HtdRax0Q%2FA2aY3Bp%2F0%3D" 
+               alt="金色福字红包封面" 
+               class="w-full h-auto mb-2">
+          <p class="text-sm">金色福字</p>
+          <p class="text-xs text-gray-500">ID: 10</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+      <h3 class="text-xl font-bold mb-4">红包封面链接测试</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</th>
+              <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">名称</th>
+              <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">兑换链接</th>
+              <th class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">测试</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">1</td>
+              <td class="py-2 px-4 border-b border-gray-200">可爱猫咪</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_y7BiwfyB6wU&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_y7BiwfyB6wU&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">2</td>
+              <td class="py-2 px-4 border-b border-gray-200">邮票花卉</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_vsz6isricJC&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_vsz6isricJC&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">3</td>
+              <td class="py-2 px-4 border-b border-gray-200">可爱兔子</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_og6GA2z0cBP&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_og6GA2z0cBP&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">4</td>
+              <td class="py-2 px-4 border-b border-gray-200">荔枝吉祥</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_yo566nz1TcK&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_yo566nz1TcK&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">5</td>
+              <td class="py-2 px-4 border-b border-gray-200">红色福字</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so9ktdJGjCR&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so9ktdJGjCR&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">6</td>
+              <td class="py-2 px-4 border-b border-gray-200">金色福字</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_ufoqBFyjGfA&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_ufoqBFyjGfA&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">7</td>
+              <td class="py-2 px-4 border-b border-gray-200">可爱小鹿</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_rW4vzU3gJLD&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_rW4vzU3gJLD&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">8</td>
+              <td class="py-2 px-4 border-b border-gray-200">金色福字</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_cpBCVQt0M4V&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_cpBCVQt0M4V&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">9</td>
+              <td class="py-2 px-4 border-b border-gray-200">金色福字</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so6c3jkuvyS&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so6c3jkuvyS&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4 border-b border-gray-200">10</td>
+              <td class="py-2 px-4 border-b border-gray-200">金色福字</td>
+              <td class="py-2 px-4 border-b border-gray-200 text-sm break-all">https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_b3d4t921BgP&is_sell=1</td>
+              <td class="py-2 px-4 border-b border-gray-200"><a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_b3d4t921BgP&is_sell=1" target="_blank" class="text-primary hover:underline">打开</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h3 class="text-xl font-bold mb-4">测试结果</h3>
+      <div class="mb-4">
+        <label for="test-result" class="block text-sm font-medium text-gray-700 mb-2">测试反馈：</label>
+        <textarea id="test-result" rows="4" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入测试结果和反馈..."></textarea>
+      </div>
+      <div class="flex justify-end">
+        <button id="save-result" class="bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors">
+          保存测试结果
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部信息 -->
+  <footer class="bg-gray-100 py-8 mt-8">
+    <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+      <p>© 2025 微信红包封面展示平台 | 测试页面</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 保存测试结果
+    document.getElementById('save-result').addEventListener('click', function() {
+      const result = document.getElementById('test-result').value;
+      if (result.trim() !== '') {
+        localStorage.setItem('testResult', result);
+        alert('测试结果已保存！');
+      } else {
+        alert('请输入测试结果！');
+      }
+    });
+
+    // 加载之前保存的测试结果
+    window.addEventListener('DOMContentLoaded', function() {
+      const savedResult = localStorage.getItem('testResult');
+      if (savedResult) {
+        document.getElementById('test-result').value = savedResult;
+      }
+    });
+
+    // 自动测试功能检查
+    function checkFunctionality() {
+      // 检查页面基本元素
+      const hasHeader = document.querySelector('header') !== null;
+      const hasMain = document.querySelector('main') !== null;
+      const hasFooter = document.querySelector('footer') !== null;
+      
+      console.log('页面结构检查:', { hasHeader, hasMain, hasFooter });
+      
+      // 检查图片加载
+      const images = document.querySelectorAll('img');
+      let loadedImages = 0;
+      let erroredImages = 0;
+      
+      images.forEach((img, index) => {
+        img.onload = function() {
+          loadedImages++;
+          console.log(`图片 ${index + 1} 加载成功`);
+          checkAllImagesLoaded();
+        };
+        
+        img.onerror = function() {
+          erroredImages++;
+          console.log(`图片 ${index + 1} 加载失败: ${img.src}`);
+          checkAllImagesLoaded();
+        };
+      });
+      
+      function checkAllImagesLoaded() {
+        if (loadedImages + erroredImages === images.length) {
+          console.log(`图片加载完成: ${loadedImages} 成功, ${erroredImages} 失败`);
+          
+          // 更新测试结果文本框
+          const resultText = document.getElementById('test-result');
+          const currentText = resultText.value;
+          const newText = `${currentText}\n\n自动测试结果:\n- 页面结构: ${hasHeader && hasMain && hasFooter ? '完整' : '不完整'}\n- 图片加载: ${loadedImages} 成功, ${erroredImages} 失败\n- 总图片数: ${images.length}`;
+          resultText.value = newText;
+        }
+      }
+    }
+
+    // 页面加载完成后执行自动检查
+    window.addEventListener('DOMContentLoaded', checkFunctionality);
+  </script>
+</body>
+</html>

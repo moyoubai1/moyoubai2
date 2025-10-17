@@ -1,0 +1,925 @@
+<html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信红包封面展示</title>
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 统一的 Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#E64340', // 微信红包红色
+            secondary: '#FFC72C', // 金色
+            light: '#FFF8F0', // 浅橙色背景
+            dark: '#333333', // 深色文字
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 3s ease-in-out infinite',
+            'shine': 'shine 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            shine: {
+              '0%, 100%': { boxShadow: '0 0 5px rgba(255, 199, 44, 0.5)' },
+              '50%': { boxShadow: '0 0 20px rgba(255, 199, 44, 0.8)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .text-shadow-lg {
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .redpacket-shadow {
+        box-shadow: 0 10px 25px -5px rgba(230, 67, 64, 0.4);
+      }
+      .gold-gradient {
+        background: linear-gradient(135deg, #FFD700 0%, #FFC107 50%, #FFD700 100%);
+      }
+      .red-gradient {
+        background: linear-gradient(135deg, #E64340 0%, #C52233 100%);
+      }
+    }
+  </style>
+</head>
+<body class="bg-light min-h-screen font-sans text-dark">
+  <!-- 顶部导航 -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <i class="fa fa-envelope text-primary text-2xl mr-2"></i>
+        <h1 class="text-xl md:text-2xl font-bold text-primary">微信红包封面</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+          <i class="fa fa-moon-o text-gray-600"></i>
+        </button>
+        <button id="share-button" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+          <i class="fa fa-share-alt text-gray-600"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主横幅 -->
+  <section class="bg-primary text-white py-12 md:py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-shadow-lg">精选微信红包封面</h2>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto opacity-90">为您的祝福增添一份特别的心意意，让每一个红包都充满个性与温度</p>
+    </div>
+  </section>
+
+  <!-- 红包封面展示区 -->
+  <section class="py-12 md:py-16">
+    <div class="container mx-auto px-4">
+      <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">热门封面</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <!-- 红包封面1 -->
+        <div class="redpacket-card group" data-id="1" data-name="可爱猫咪" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_y7BiwfyB6wU&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/67e39cd6dc3e4682a4d1ef990aaa61cb.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761283080&amp;x-signature=KNeQzrMyB6sAMHCJpLn5D9o%2BZIo%3D" alt="可爱猫咪红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 m-2 rounded-full">
+                热销
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">可爱猫咪</h4>
+                <div class="flex items-center">
+                  <i class="fa fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">温馨可爱的猫咪形象，传递温暖祝福</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面2 -->
+        <div class="redpacket-card group" data-id="2" data-name="邮票花卉" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_vsz6isricJC&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/fb1083cf63864de29b96343183f3b27a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761283080&amp;x-signature=PiRl19UlBkeqVnKsI6YFTuuq%2Fh4%3D" alt="邮票花卉红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">邮票花卉</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">经典邮票设计，展现传统与优雅</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面3 -->
+        <div class="redpacket-card group" data-id="3" data-name="可爱兔子" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_og6GA2z0cBP&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ee0cac3549ba476eb16d5baa4c4b78ec.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761283080&amp;x-signature=YE3KmlgLTuS91XpiI8tTQPd%2FIIc%3D" alt="可爱兔子红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 m-2 rounded-full">
+                新品
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">可爱兔子</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">萌系兔子形象，传递甜蜜祝福</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面4 -->
+        <div class="redpacket-card group" data-id="4" data-name="荔枝吉祥" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_yo566nz1TcK&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ca69e7ca1fb7472bbd6b53f766148be6.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761283080&amp;x-signature=yaVqZBSN7uBGjStdY%2BaGU%2FBPP98%3D" alt="荔枝吉祥红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">荔枝吉祥</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">荔枝图案设计，寓意吉祥如意</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面5 -->
+        <div class="redpacket-card group" data-id="5" data-name="红色福字" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so9ktdJGjCR&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/2752594390cd42f4a1e89ccd76dbb657.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761284331&amp;x-signature=dRkXuWpFgciM4DG6lMJH%2FO6Ldgw%3D" alt="红色福字红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 m-2 rounded-full">
+                爆款
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">莲花</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">睡莲，简约大方，寓意吉祥如意</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面6 -->
+        <div class="redpacket-card group" data-id="6" data-name="金色福字" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_ufoqBFyjGfA&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/5596d4d36bcb4db7b78d67b5ac23e184.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761284331&amp;x-signature=qhBEVz2egChaN%2BuY5EpWfSB%2B%2FOs%3D" alt="金色福字红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">姑苏谣</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">古风歌词设计，搭配背景，传统与现代结合</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面7 -->
+        <div class="redpacket-card group" data-id="7" data-name="可爱小鹿" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_rW4vzU3gJLD&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/928021fa624c460394fc8403da6f2a9a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761284331&amp;x-signature=29YOY6ScMGsuScM3vsihGsO5uTI%3D" alt="可爱小鹿红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 m-2 rounded-full">
+                新品
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">如你</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">卡通风格，可爱歌词形象，温馨可爱</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面8 -->
+        <div class="redpacket-card group" data-id="8" data-name="金色福字" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_cpBCVQt0M4V&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/3f3da109358443e98cd4740e027b772e.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761284331&amp;x-signature=H0PH%2Bx7n5NAI92xKzYUaf6SKSUk%3D" alt="金色福字红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">古城谣</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">歌词设计，搭配红色背景，传统与现代结合</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面9 -->
+        <div class="redpacket-card group" data-id="9" data-name="金色福字" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so6c3jkuvyS&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/7e63b57fd0d8469aa06d983600a4d61a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761284331&amp;x-signature=mWVIdCEgei%2BSGGSEDncegGx3OWo%3D" alt="金色福字红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 m-2 rounded-full">
+                限量
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">古风1</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">古风意境设计，搭配背景，传统与现代结合</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 红包封面10 -->
+        <div class="redpacket-card group" data-id="10" data-name="金色福字" data-price="35" data-url="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_b3d4t921BgP&amp;is_sell=1">
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="relative overflow-hidden">
+              <img src="https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/668640f03bbd427e89edf083b6e39433.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&amp;rk3s=8e244e95&amp;rrcfp=8a172a1a&amp;x-expires=1761284331&amp;x-signature=wj9ocMSZ6HtdRax0Q%2FA2aY3Bp%2F0%3D" alt="金色福字红包封面" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold">古风2</h4>
+                <div class="flex items-center">
+                  <i class="fa fa-diamond text-secondary mr-1"></i>
+                  <span class="font-bold">35</span>
+                </div>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">古风意境，搭配背景，传统与现代结合</p>
+              <div class="flex space-x-2">
+                <button class="preview-btn flex-1 bg-primary hover:bg-red-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-eye mr-2"></i> 预览
+                </button>
+                <button class="buy-btn flex-1 bg-secondary hover:bg-yellow-500 text-dark py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                  <i class="fa fa-shopping-cart mr-2"></i> 兑换
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 红包封面详情模态框 -->
+  <div id="redpacket-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm" id="modal-overlay"></div>
+    <div class="relative bg-white rounded-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10">
+        <i class="fa fa-times text-xl"></i>
+      </button>
+      
+      <div class="p-6" id="modal-content">
+        <div class="flex flex-col md:flex-row">
+          <!-- 左侧预览区 -->
+          <div class="md:w-1/2 flex justify-center items-center mb-6 md:mb-0 md:pr-6">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-3xl"></div>
+              <img id="modal-image" src="" alt="红包封面预览" class="relative z-10 max-w-full max-h-full object-contain animate-float">
+            </div>
+          </div>
+          
+          <!-- 右侧信息区 -->
+          <div class="md:w-1/2">
+            <h3 id="modal-name" class="text-2xl font-bold mb-2"></h3>
+            <div class="flex items-center mb-4">
+              <div class="flex items-center mr-4">
+                <i class="fa fa-diamond text-secondary mr-1"></i>
+                <span id="modal-price" class="font-bold text-lg"></span>
+                <span class="ml-1 text-gray-600">微信豆</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fa fa-star text-yellow-400 mr-1"></i>
+                <span id="modal-rating" class="font-bold">4.9</span>
+                <span class="ml-1 text-gray-600">(128)</span>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="font-bold mb-2">封面介绍</h4>
+              <p id="modal-description" class="text-gray-600"></p>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="font-bold mb-2">使用说明</h4>
+              <ul class="text-gray-600 text-sm space-y-1">
+                <li><i class="fa fa-check-circle text-green-500 mr-1"></i> 兑换后可在微信红包中使用</li>
+                <li><i class="fa fa-check-circle text-green-500 mr-1"></i> 有效期为购买后3个月</li>
+                <li><i class="fa fa-check-circle text-green-500 mr-1"></i> 支持发给好友和群聊</li>
+              </ul>
+            </div>
+            
+            <div class="flex space-x-4">
+              <button id="modal-preview-btn" class="flex-1 bg-primary hover:bg-red-600 text-white py-3 px-6 rounded-lg transition-colors flex items-center justify-center">
+                <i class="fa fa-mobile text-xl mr-2"></i> 在微信中打开
+              </button>
+              <button id="modal-collect-btn" class="w-12 h-12 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                <i class="fa fa-heart-o text-gray-600"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 红包封面预览动画模态框 -->
+  <div id="preview-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm" id="preview-modal-overlay"></div>
+    <div class="relative text-center">
+      <button id="close-preview-modal" class="absolute -top-12 right-0 text-white hover:text-gray-300 z-10">
+        <i class="fa fa-times text-2xl"></i>
+      </button>
+      
+      <div class="relative w-64 h-64 md:w-80 md:h-80 mx-auto">
+        <div id="preview-animation" class="relative w-full h-full">
+          <!-- 动画内容将通过JavaScript动态生成 -->
+        </div>
+      </div>
+      
+      <p class="text-white mt-6 text-lg">点击屏幕可查看不同角度</p>
+    </div>
+  </div>
+
+  <!-- 底部信息 -->
+  <footer class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <div class="flex items-center">
+            <i class="fa fa-envelope text-primary text-xl mr-2"></i>
+            <span class="font-bold text-lg">微信红包封面</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-1">为您的祝福增添一份特别的心意</p>
+        </div>
+        
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">
+            <i class="fa fa-weixin text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">
+            <i class="fa fa-weibo text-xl"></i>
+          </a>
+          <a href="#" class="text-gray-600 hover:text-primary transition-colors">
+            <i class="fa fa-qq text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-200 mt-6 pt-6 text-center text-gray-500 text-sm">
+        <p>© 2025 微信红包封面展示平台 | 本站内容仅供展示，非官方平台</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 红包封面数据
+    const redpackets = [
+      {
+        id: 1,
+        name: "可爱猫咪",
+        price: 35,
+        image: "https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/67e39cd6dc3e4682a4d1ef990aaa61cb.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=KNeQzrMyB6sAMHCJpLn5D9o%2BZIo%3D",
+        description: "温馨可爱的猫咪形象，传递温暖祝福。红包封面上的猫咪戴着红色项圈，脖子上挂着金色铃铛，背景是绿色植物和红色花朵，充满生机与活力。",
+        rating: 4.9,
+        reviews: 128,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_y7BiwfyB6wU&is_sell=1"
+      },
+      {
+        id: 2,
+        name: "邮票花卉",
+        price: 35,
+        image: "https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/fb1083cf63864de29b96343183f3b27a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=PiRl19UlBkeqVnKsI6YFTuuq%2Fh4%3D",
+        description: "经典邮票设计，展现传统与优雅。红包封面上的邮票图案采用红色花卉设计，黑色背景衬托出邮票的精致，底部红色设计增添喜庆氛围。",
+        rating: 4.7,
+        reviews: 96,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_vsz6isricJC&is_sell=1"
+      },
+      {
+        id: 3,
+        name: "可爱兔子",
+        price: 35,
+        image: "https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ee0cac3549ba476eb16d5baa4c4b78ec.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=YE3KmlgLTuS91XpiI8tTQPd%2FIIc%3D",
+        description: "萌系兔子形象，传递甜蜜祝福。红包封面上的兔子抱着白色花束，浅绿色背景营造清新氛围，兔子耳朵内侧的粉色增添可爱感，英文'Always yours'表达真挚情感。",
+        rating: 4.8,
+        reviews: 112,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_og6GA2z0cBP&is_sell=1"
+      },
+      {
+        id: 4,
+        name: "荔枝吉祥",
+        price: 35,
+        image: "https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/ca69e7ca1fb7472bbd6b53f766148be6.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713180005DABC9E85297F470FCA&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761283080&x-signature=yaVqZBSN7uBGjStdY%2BaGU%2FBPP98%3D",
+        description: "荔枝图案设计，寓意吉祥如意。红包封面上的荔枝采用水彩风格绘制，红色与粉色渐变展现荔枝的新鲜多汁，旁边配有'吉祥如意'字样，传递美好祝愿。",
+        rating: 4.6,
+        reviews: 87,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_yo566nz1TcK&is_sell=1"
+      },
+      {
+        id: 5,
+        name: "红色福字",
+        price: 35,
+        image: "https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/2752594390cd42f4a1e89ccd76dbb657.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=dRkXuWpFgciM4DG6lMJH%2FO6Ldgw%3D",
+        description: "经典红色背景搭配金色福字，简约大方，寓意吉祥如意。红包封面采用传统中国红与金色配色，中央是一个立体的金色福字，周围有精美的花纹装饰，整体设计典雅大气，充满节日喜庆氛围。",
+        rating: 4.9,
+        reviews: 156,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so9ktdJGjCR&is_sell=1"
+      },
+      {
+        id: 6,
+        name: "金色福字",
+        price: 35,
+        image: "https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/5596d4d36bcb4db7b78d67b5ac23e184.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=qhBEVz2egChaN%2BuY5EpWfSB%2B%2FOs%3D",
+        description: "金色福字设计，搭配红色背景，传统与现代结合。红包封面采用纯红色背景，中央是一个立体的金色福字，周围有精美的几何图案装饰，简约而不失精致，适合各种节日场合使用。",
+        rating: 4.7,
+        reviews: 103,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_ufoqBFyjGfA&is_sell=1"
+      },
+      {
+        id: 7,
+        name: "可爱小鹿",
+        price: 35,
+        image: "https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/928021fa624c460394fc8403da6f2a9a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=29YOY6ScMGsuScM3vsihGsO5uTI%3D",
+        description: "卡通风格，可爱小鹿形象，温馨可爱。红包封面采用红色背景，中央是一只戴着红色围巾的可爱小鹿，鹿角上有金色装饰，表情呆萌，适合用于朋友间的红包互动，增添趣味性。",
+        rating: 4.8,
+        reviews: 142,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_rW4vzU3gJLD&is_sell=1"
+      },
+      {
+        id: 8,
+        name: "金色福字",
+        price: 35,
+        image: "https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/3f3da109358443e98cd4740e027b772e.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=H0PH%2Bx7n5NAI92xKzYUaf6SKSUk%3D",
+        description: "金色福字设计，搭配红色背景，传统与现代结合。红包封面采用红色背景，中央是一个立体的金色福字，周围有精美的花纹装饰，简约而不失精致，适合各种节日场合使用。",
+        rating: 4.6,
+        reviews: 98,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_cpBCVQt0M4V&is_sell=1"
+      },
+      {
+        id: 9,
+        name: "金色福字",
+        price: 35,
+        image: "https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/7e63b57fd0d8469aa06d983600a4d61a.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=mWVIdCEgei%2BSGGSEDncegGx3OWo%3D",
+        description: "金色福字设计，搭配红色背景，传统与现代结合。红包封面采用红色背景，中央是一个立体的金色福字，周围有精美的花纹装饰，简约而不失精致，适合各种节日场合使用。",
+        rating: 4.7,
+        reviews: 115,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so6c3jkuvyS&is_sell=1"
+      },
+      {
+        id: 10,
+        name: "金色福字",
+        price: 35,
+        image: "https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/668640f03bbd427e89edf083b6e39433.png~tplv-a9rns2rl98-24:720:720.png?rcl=2025101713385147933438286F06639C8E&rk3s=8e244e95&rrcfp=8a172a1a&x-expires=1761284331&x-signature=wj9ocMSZ6HtdRax0Q%2FA2aY3Bp%2F0%3D",
+        description: "金色福字设计，搭配红色背景，传统与现代结合。红包封面采用红色背景，中央是一个立体的金色福字，周围有精美的花纹装饰，简约而不失精致，适合各种节日场合使用。",
+        rating: 4.5,
+        reviews: 89,
+        url: "https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_b3d4t921BgP&is_sell=1"
+      }
+    ];
+
+    // DOM元素
+    const redpacketModal = document.getElementById('redpacket-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const closeModal = document.getElementById('close-modal');
+    const modalContent = document.getElementById('modal-content');
+    const modalImage = document.getElementById('modal-image');
+    const modalName = document.getElementById('modal-name');
+    const modalPrice = document.getElementById('modal-price');
+    const modalRating = document.getElementById('modal-rating');
+    const modalDescription = document.getElementById('modal-description');
+    const modalPreviewBtn = document.getElementById('modal-preview-btn');
+    const modalCollectBtn = document.getElementById('modal-collect-btn');
+
+    const previewModal = document.getElementById('preview-modal');
+    const previewModalOverlay = document.getElementById('preview-modal-overlay');
+    const closePreviewModal = document.getElementById('close-preview-modal');
+    const previewAnimation = document.getElementById('preview-animation');
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const shareButton = document.getElementById('share-button');
+
+    // 当前选中的红包封面ID
+    let currentRedpacketId = null;
+
+    // 打开红包封面详情模态框
+    function openRedpacketModal(id) {
+      const redpacket = redpackets.find(rp => rp.id === id);
+      if (!redpacket) return;
+
+      currentRedpacketId = id;
+
+      // 更新模态框内容
+      modalImage.src = redpacket.image;
+      modalImage.alt = redpacket.name;
+      modalName.textContent = redpacket.name;
+      modalPrice.textContent = redpacket.price;
+      modalRating.textContent = redpacket.rating;
+      modalDescription.textContent = redpacket.description;
+
+      // 设置在微信中打开按钮的链接
+      modalPreviewBtn.onclick = () => {
+        window.open(redpacket.url, '_blank');
+      };
+
+      // 设置收藏按钮状态
+      const isCollected = checkIfCollected(id);
+      updateCollectButton(isCollected);
+
+      // 显示模态框
+      redpacketModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭红包封面详情模态框
+    function closeRedpacketModal() {
+      redpacketModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // 打开红包封面预览动画模态框
+    function openPreviewModal(id) {
+      const redpacket = redpackets.find(rp => rp.id === id);
+      if (!redpacket) return;
+
+      // 创建3D预览效果
+      create3DPreview(redpacket.image);
+
+      // 显示预览模态框
+      previewModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭红包封面预览动画模态框
+    function closePreviewModalFunc() {
+      previewModal.classList.add('hidden');
+      document.body.style.overflow = '';
+      previewAnimation.innerHTML = ''; // 清空动画内容
+    }
+
+    // 创建3D预览效果
+    function create3DPreview(imageUrl) {
+      // 创建多个角度的红包封面
+      const angles = 8; // 8个角度
+      const container = document.createElement('div');
+      container.className = 'relative w-full h-full';
+
+      for (let i = 0; i < angles; i++) {
+        const angle = (i / angles) * 360;
+        const radians = angle * Math.PI / 180;
+        
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300';
+        imageContainer.style.transform = `rotateY(${angle}deg) translateZ(150px)`;
+        imageContainer.dataset.angle = i;
+        
+        const image = document.createElement('img');
+        image.src = imageUrl;
+        image.alt = `红包封面角度 ${i+1}`;
+        image.className = 'max-w-full max-h-full object-contain';
+        
+        imageContainer.appendChild(image);
+        container.appendChild(imageContainer);
+      }
+
+      // 添加中心图像
+      const centerImage = document.createElement('img');
+      centerImage.src = imageUrl;
+      centerImage.alt = '红包封面正面';
+      centerImage.className = 'absolute inset-0 m-auto max-w-[60%] max-h-[60%] object-contain';
+      container.appendChild(centerImage);
+
+      previewAnimation.appendChild(container);
+
+      // 默认显示第一个角度
+      showAngle(0);
+
+      // 添加点击切换角度功能
+      let currentAngle = 0;
+      previewAnimation.addEventListener('click', () => {
+        currentAngle = (currentAngle + 1) % angles;
+        showAngle(currentAngle);
+      });
+    }
+
+    // 显示特定角度
+    function showAngle(angleIndex) {
+      const containers = previewAnimation.querySelectorAll('[data-angle]');
+      containers.forEach((container, index) => {
+        container.style.opacity = index === angleIndex ? '1' : '0';
+      });
+    }
+
+    // 检查是否已收藏
+    function checkIfCollected(id) {
+      const collected = localStorage.getItem('collectedRedpackets');
+      if (!collected) return false;
+      const collectedIds = JSON.parse(collected);
+      return collectedIds.includes(id);
+    }
+
+    // 更新收藏按钮状态
+    function updateCollectButton(isCollected) {
+      if (isCollected) {
+        modalCollectBtn.innerHTML = '<i class="fa fa-heart text-red-500"></i>';
+        modalCollectBtn.classList.remove('bg-gray-100', 'hover:bg-gray-200');
+        modalCollectBtn.classList.add('bg-red-100', 'hover:bg-red-200');
+      } else {
+        modalCollectBtn.innerHTML = '<i class="fa fa-heart-o text-gray-600"></i>';
+        modalCollectBtn.classList.remove('bg-red-100', 'hover:bg-red-200');
+        modalCollectBtn.classList.add('bg-gray-100', 'hover:bg-gray-200');
+      }
+    }
+
+    // 切换收藏状态
+    function toggleCollect() {
+      if (!currentRedpacketId) return;
+
+      let collected = localStorage.getItem('collectedRedpackets');
+      let collectedIds = collected ? JSON.parse(collected) : [];
+
+      const index = collectedIds.indexOf(currentRedpacketId);
+      if (index === -1) {
+        // 添加收藏
+        collectedIds.push(currentRedpacketId);
+        showToast('收藏成功');
+      } else {
+        // 取消收藏
+        collectedIds.splice(index, 1);
+        showToast('已取消收藏');
+      }
+
+      localStorage.setItem('collectedRedpackets', JSON.stringify(collectedIds));
+      updateCollectButton(index === -1);
+    }
+
+    // 显示提示消息
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg z-50';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+        setTimeout(() => {
+          document.body.removeChild(toast);
+        }, 300);
+      }, 2000);
+    }
+
+    // 切换深色/浅色主题
+    function toggleTheme() {
+      document.body.classList.toggle('dark-theme');
+      const isDark = document.body.classList.contains('dark-theme');
+      
+      if (isDark) {
+        themeToggle.innerHTML = '<i class="fa fa-sun-o text-yellow-400"></i>';
+        document.body.classList.add('bg-gray-900', 'text-white');
+        document.body.classList.remove('bg-light', 'text-dark');
+      } else {
+        themeToggle.innerHTML = '<i class="fa fa-moon-o text-gray-600"></i>';
+        document.body.classList.remove('bg-gray-900', 'text-white');
+        document.body.classList.add('bg-light', 'text-dark');
+      }
+      
+      localStorage.setItem('darkTheme', isDark);
+    }
+
+    // 分享功能
+    function shareRedpacket() {
+      if (!currentRedpacketId) {
+        showToast('请先选择一个红包封面');
+        return;
+      }
+
+      const redpacket = redpackets.find(rp => rp.id === currentRedpacketId);
+      if (!redpacket) return;
+
+      // 检查是否支持Web Share API
+      if (navigator.share) {
+        navigator.share({
+          title: `微信红包封面：${redpacket.name}`,
+          text: `我发现了一个很棒的微信红包封面：${redpacket.name}，快来看看吧！`,
+          url: window.location.href
+        }).then(() => {
+          console.log('分享成功');
+        }).catch((error) => {
+          console.log('分享失败:', error);
+          fallbackShare(redpacket);
+        });
+      } else {
+        fallbackShare(redpacket);
+      }
+    }
+
+    // 分享功能降级方案
+    function fallbackShare(redpacket) {
+      // 创建分享链接
+      const shareUrl = `${window.location.href}?id=${redpacket.id}`;
+      
+      // 创建临时输入框复制链接
+      const tempInput = document.createElement('input');
+      tempInput.value = shareUrl;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      
+      showToast('分享链接已复制到剪贴板');
+    }
+
+    // 初始化页面
+    function initPage() {
+      // 检查URL参数是否有红包封面ID
+      const urlParams = new URLSearchParams(window.location.search);
+      const redpacketId = urlParams.get('id');
+      if (redpacketId) {
+        const id = parseInt(redpacketId);
+        if (!isNaN(id)) {
+          setTimeout(() => {
+            openRedpacketModal(id);
+          }, 500);
+        }
+      }
+
+      // 检查主题偏好
+      const isDark = localStorage.getItem('darkTheme') === 'true';
+      if (isDark) {
+        toggleTheme();
+      }
+
+      // 绑定事件
+      // 红包封面卡片点击事件
+      document.querySelectorAll('.redpacket-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          // 如果点击的是按钮，不打开详情
+          if (e.target.closest('button')) return;
+          
+          const id = parseInt(card.dataset.id);
+          openRedpacketModal(id);
+        });
+      });
+
+      // 预览按钮点击事件
+      document.querySelectorAll('.preview-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = btn.closest('.redpacket-card');
+          const id = parseInt(card.dataset.id);
+          openPreviewModal(id);
+        });
+      });
+
+      // 兑换按钮点击事件
+      document.querySelectorAll('.buy-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const card = btn.closest('.redpacket-card');
+          const url = card.dataset.url;
+          window.open(url, '_blank');
+        });
+      });
+
+      // 关闭模态框事件
+      closeModal.addEventListener('click', closeRedpacketModal);
+      modalOverlay.addEventListener('click', closeRedpacketModal);
+
+      // 关闭预览模态框事件
+      closePreviewModal.addEventListener('click', closePreviewModalFunc);
+      previewModalOverlay.addEventListener('click', closePreviewModalFunc);
+
+      // 收藏按钮点击事件
+      modalCollectBtn.addEventListener('click', toggleCollect);
+
+      // 主题切换按钮点击事件
+      themeToggle.addEventListener('click', toggleTheme);
+
+      // 分享按钮点击事件
+      shareButton.addEventListener('click', shareRedpacket);
+    }
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+
+
+</body></html>
