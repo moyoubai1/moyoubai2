@@ -55,6 +55,17 @@
       .red-gradient {
         background: linear-gradient(135deg, #E64340 0%, #C52233 100%);
       }
+      .danmaku {
+        position: absolute;
+        white-space: nowrap;
+        font-weight: bold;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+      }
+      @keyframes danmakuMove {
+        from { transform: translateX(100%); }
+        to { transform: translateX(-100%); }
+      }
     }
   </style>
 </head>
@@ -458,6 +469,38 @@
       <p class="text-white mt-6 text-lg">点击屏幕可查看不同角度</p>
     </div>
   </div>
+
+  <!-- 弹幕区域 -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">留言弹幕</h3>
+      
+      <!-- 弹幕弹幕显示区域 -->
+      <div id="danmaku-container" class="relative w-full h-64 bg-gray-50 rounded-lg rounded-xl overflow-hidden mb-6">
+        <!-- 弹幕将将在这里动态生成 -->
+      </div>
+      
+      <!-- 弹幕输入区域 -->
+      <div class="flex flex-col md:flex-row gap-4">
+        <input type="text" id="danmaku-input" placeholder="输入您的留言..." class="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+        <div class="flex gap-2">
+          <select id="danmaku-color" class="px-4 py-3 rounded-lg rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <option value="#000000">黑色</option>
+            <option value="#E64340">红色</option>
+            <option value="#3498db">蓝色</option>
+            <option value="#2ecc71">绿色</option>
+            <option value="#f39c12">橙色</option>
+            <option value="#9b59b6">紫色</option>
+          </select>
+          <button id="send-danmaku" class="px-6 py-3 bg-primary hover:bg-red-600 text-white rounded-lg transition-colors flex items-center justify-center">
+            <i class="fa fa-paper-plane mr-2"></i> 发送
+          </button>
+        </div>
+      </div>
+      
+      <p class="text-gray-500 text-sm mt-4 text-center">温馨提示：发送弹幕即表示您同意遵守社区规范</p>
+    </div>
+  </section>
 
   <!-- 底部信息 -->
   <footer class="bg-gray-100 py-8">
@@ -917,8 +960,152 @@
       shareButton.addEventListener('click', shareRedpacket);
     }
 
+    // 弹幕功能
+    const danmakuContainer = document.getElementById('danmaku-container');
+    const danmakuInput = document.getElementById('danmaku-input');
+    const danmakuColor = document.getElementById('danmaku-color');
+    const sendDanmakuBtn = document.getElementById('send-danmaku');
+    
+    // 预设弹幕内容
+    const presetDanmakus = [
+      "这个红包封面真好看！",
+      "我喜欢这个设计",
+      "很有创意的红包封面",
+      "太漂亮了，我要兑换",
+      "这个设计很有中国风",
+      "好可爱的红包封面",
+      "设计很精致",
+      "我已经兑换了，很好用",
+      "这个颜色搭配很棒",
+      "很适合节日使用"
+    ];
+    
+    // 弹幕颜色列表
+    const danmakuColors = [
+      "#000000", // 黑色
+      "#E64340", // 红色
+      "#3498db", // 蓝色
+      "#2ecc71", // 绿色
+      "#f39c12", // 橙色
+      "#9b59b6"  // 紫色
+    ];
+    
+    // 初始化弹幕
+    function initDanmakus() {
+      // 加载本地存储的弹幕
+      loadDanmakus();
+      
+      // 自动播放预设弹幕
+      startAutoDanmakus();
+      
+      // 绑定发送弹幕事件
+      sendDanmakuBtn.addEventListener('click', sendDanmaku);
+      danmakuInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendDanmaku();
+        }
+      });
+    }
+    
+    // 加载本地存储的弹幕
+    function loadDanmakus() {
+      const savedDanmakus = localStorage.getItem('danmakus');
+      if (savedDanmakus) {
+        const danmakus = JSON.parse(savedDanmakus);
+        danmakus.forEach(danmaku => {
+          createDanmakuElement(danmaku.text, danmaku.color);
+        });
+      }
+    }
+    
+    // 保存弹幕到本地存储
+    function saveDanmaku(text, color) {
+      const savedDanmakus = localStorage.getItem('danmakus') || '[]';
+      const danmakus = JSON.parse(savedDanmakus);
+      
+      // 限制弹幕数量，最多保存50条
+      if (danmakus.length >= 50) {
+        danmakus.shift(); // 移除最早的一条
+      }
+      
+      danmakus.push({ text, color, time: Date.now() });
+      localStorage.setItem('danmakus', JSON.stringify(danmakus));
+    }
+    
+    // 发送弹幕
+    function sendDanmaku() {
+      const text = danmakuInput.value.trim();
+      if (!text) return;
+      
+      const color = danmakuColor.value;
+      
+      // 创建弹幕元素
+      createDanmakuElement(text, color);
+      
+      // 保存弹幕
+      saveDanmaku(text, color);
+      
+      // 清空输入框
+      danmakuInput.value = '';
+      
+      // 显示发送成功提示
+      showToast('弹幕发送成功');
+    }
+    
+    // 创建弹幕元素
+    function createDanmakuElement(text, color) {
+      const danmaku = document.createElement('div');
+      danmaku.className = 'danmaku';
+      danmaku.textContent = text;
+      danmaku.style.color = color;
+      
+      // 随机设置弹幕的垂直位置
+      const containerHeight = danmakuContainer.clientHeight;
+      const fontSize = 16 + Math.floor(Math.random() * 8); // 16px - 24px
+      danmaku.style.fontSize = `${fontSize}px`;
+      
+      const maxTop = containerHeight - fontSize - 10;
+      const top = Math.max(10, Math.floor(Math.random() * maxTop));
+      danmaku.style.top = `${top}px`;
+      
+      // 设置弹幕动画
+      const duration = 8 + Math.random() * 4; // 8s - 12s
+      danmaku.style.animationName = 'danmakuMove';
+      danmaku.style.animationDuration = `${duration}s`;
+      
+      // 添加到容器
+      danmakuContainer.appendChild(danmaku);
+      
+      // 动画结束后移除元素
+      setTimeout(() => {
+        danmaku.remove();
+      }, duration * 1000);
+    }
+    
+    // 自动播放预设弹幕
+    function startAutoDanmakus() {
+      // 立即发送一条
+      sendRandomPresetDanmaku();
+      
+      // 每隔3-8秒发送一条预设弹幕
+      setInterval(() => {
+        sendRandomPresetDanmaku();
+      }, 3000 + Math.random() * 5000);
+    }
+    
+    // 发送随机预设弹幕
+    function sendRandomPresetDanmaku() {
+      const randomText = presetDanmakus[Math.floor(Math.random() * presetDanmakus.length)];
+      const randomColor = danmakuColors[Math.floor(Math.random() * danmakuColors.length)];
+      
+      createDanmakuElement(randomText, randomColor);
+    }
+
     // 页面加载完成后初始化
-    document.addEventListener('DOMContentLoaded', initPage);
+    document.addEventListener('DOMContentLoaded', () => {
+      initPage();
+      initDanmakus();
+    });
   </script>
 
 
