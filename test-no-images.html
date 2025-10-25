@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无图片测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        /* 轮播样式 */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid #ddd;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s;
+            height: 100%;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .slide:nth-child(1) {
+            background-color: #ff5c8d;
+        }
+        .slide:nth-child(2) {
+            background-color: #4facfe;
+        }
+        .slide:nth-child(3) {
+            background-color: #43e97b;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .btn {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            color: #333;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        /* 卡片样式 */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .card-image {
+            width: 100%;
+            height: 150px;
+        }
+        .card-content {
+            padding: 10px;
+            background-color: white;
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>测试页面</h1>
+        
+        <!-- 简单轮播 -->
+        <div class="carousel">
+            <div class="slides" id="slides">
+                <div class="slide">幻灯片 1</div>
+                <div class="slide">幻灯片 2</div>
+                <div class="slide">幻灯片 3</div>
+            </div>
+            <div class="controls">
+                <button class="btn" onclick="prevSlide()">‹</button>
+                <button class="btn" onclick="nextSlide()">›</button>
+            </div>
+        </div>
+        
+        <!-- 卡片区域 -->
+        <h2>卡片预览</h2>
+        <div class="cards" id="cards-container">
+            <!-- 卡片将通过JS动态生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 轮播功能
+        var currentSlide = 0;
+        var slides = document.getElementById('slides');
+        var slideCount = slides.children.length;
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+            slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+        }
+        
+        // 自动轮播
+        setInterval(nextSlide, 3000);
+        
+        // 卡片数据
+        var cardColors = ['#ff5c8d', '#4facfe', '#43e97b', '#f093fb', '#f5576c', '#4facfe'];
+        var cardTitles = ['卡片1', '卡片2', '卡片3', '卡片4', '卡片5', '卡片6'];
+        
+        // 生成卡片
+        var container = document.getElementById('cards-container');
+        for (var i = 0; i < cardColors.length; i++) {
+            var card = document.createElement('div');
+            card.className = 'card';
+            
+            var imageDiv = document.createElement('div');
+            imageDiv.className = 'card-image';
+            imageDiv.style.backgroundColor = cardColors[i];
+            
+            var contentDiv = document.createElement('div');
+            contentDiv.className = 'card-content';
+            
+            var title = document.createElement('h3');
+            title.innerHTML = cardTitles[i];
+            
+            contentDiv.appendChild(title);
+            card.appendChild(imageDiv);
+            card.appendChild(contentDiv);
+            
+            // 添加点击事件
+            card.onclick = function() {
+                alert('点击了卡片: ' + this.querySelector('h3').innerHTML);
+            };
+            
+            container.appendChild(card);
+        }
+    </script>
+</body>
+</html>

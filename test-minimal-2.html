@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简化测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        /* 轮播样式 */
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s;
+            height: 100%;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .btn {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            color: #333;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        /* 卡片样式 */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card {
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 10px;
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>测试页面</h1>
+        
+        <!-- 简单轮播 -->
+        <div class="carousel">
+            <div class="slides" id="slides">
+                <div class="slide">
+                    <img src="https://img.baidu.com/img/image/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" alt="图片1">
+                </div>
+                <div class="slide">
+                    <img src="https://img.baidu.com/img/image/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png" alt="图片2">
+                </div>
+            </div>
+            <div class="controls">
+                <button class="btn" onclick="prevSlide()">‹</button>
+                <button class="btn" onclick="nextSlide()">›</button>
+            </div>
+        </div>
+        
+        <!-- 卡片区域 -->
+        <h2>卡片预览</h2>
+        <div class="cards" id="cards-container">
+            <!-- 卡片将通过JS动态生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 轮播功能
+        var currentSlide = 0;
+        var slides = document.getElementById('slides');
+        var slideCount = slides.children.length;
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+            slides.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+        }
+        
+        // 自动轮播
+        setInterval(nextSlide, 3000);
+        
+        // 卡片数据
+        var cardData = [
+            { img: "https://img.baidu.com/img/image/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", title: "卡片1" },
+            { img: "https://img.baidu.com/img/image/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", title: "卡片2" }
+        ];
+        
+        // 生成卡片
+        var container = document.getElementById('cards-container');
+        for (var i = 0; i < cardData.length; i++) {
+            var card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = '<img src="' + cardData[i].img + '" alt="' + cardData[i].title + '">' +
+                             '<div class="card-content"><h3>' + cardData[i].title + '</h3></div>';
+            container.appendChild(card);
+        }
+    </script>
+</body>
+</html>

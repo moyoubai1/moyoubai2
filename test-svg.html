@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG测试页面</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .test-image {
+      border: 2px solid blue;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>SVG图片测试</h1>
+  
+  <h2>直接内联SVG</h2>
+  <svg class="test-image" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#f00"/>
+    <text x="100" y="100" font-family="Arial" font-size="20" fill="white" text-anchor="middle" dominant-baseline="middle">测试图片1</text>
+  </svg>
+  
+  <h2>Data URL SVG</h2>
+  <img class="test-image" src="data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%230f0'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='20' fill='black' text-anchor='middle' dominant-baseline='middle'%3E测试图片2%3C/text%3E%3C/svg%3E" alt="Data URL SVG">
+  
+  <script>
+    console.log('测试页面加载');
+    // 检查图片加载状态
+    const images = document.querySelectorAll('img');
+    images.forEach((img, index) => {
+      img.onload = function() {
+        console.log(`✅ 图片${index + 1}加载成功`);
+      };
+      img.onerror = function() {
+        console.error(`❌ 图片${index + 1}加载失败`);
+      };
+    });
+  </script>
+</body>
+</html>

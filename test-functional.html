@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信红包封面 - 功能测试</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f5f5;
+    }
+    
+    /* Banner轮播样式 */
+    .banner-container {
+      width: 1000px;
+      height: 220px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .banner-wrapper {
+      display: flex;
+      width: 300%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+    .banner-slide {
+      flex: 1;
+      display: flex;
+      height: 100%;
+    }
+    .slide-link {
+      flex: 1;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .slide-link:hover {
+      transform: scale(1.05);
+      z-index: 1;
+    }
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-right: 1px solid #fff;
+    }
+    .control-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .prev-btn {
+      left: 10px;
+    }
+    .next-btn {
+      right: 10px;
+    }
+    .control-btn:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    .indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+    .indicator-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .indicator-dot.active {
+      background-color: white;
+    }
+    
+    /* 卡片样式 */
+    .card-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .card {
+      width: 200px;
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      background-color: white;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .card-img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 10px;
+    }
+    .card-content h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .card-content p {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <!-- Banner轮播 -->
+  <section class="py-6 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="banner-container">
+        <div class="banner-wrapper">
+          <!-- 轮播组1 -->
+          <div class="banner-slide">
+            <a href="#redpacket-1" class="slide-link" data-id="1"><img src="https://i.ibb.co/1fsSp9g8/1.png" alt="Banner 1" class="slide-img"></a>
+            <a href="#redpacket-2" class="slide-link" data-id="2"><img src="https://i.ibb.co/1fZNkWdP/2.png" alt="Banner 2" class="slide-img"></a>
+            <a href="#redpacket-3" class="slide-link" data-id="3"><img src="https://i.ibb.co/sJjkjNJj/3.png" alt="Banner 3" class="slide-img"></a>
+            <a href="#redpacket-4" class="slide-link" data-id="4"><img src="https://i.ibb.co/5gQL5f8F/4.png" alt="Banner 4" class="slide-img"></a>
+            <a href="#redpacket-5" class="slide-link" data-id="5"><img src="https://i.ibb.co/8D6YtVX7/5.png" alt="Banner 5" class="slide-img"></a>
+          </div>
+          <!-- 轮播组2 -->
+          <div class="banner-slide">
+            <a href="#redpacket-6" class="slide-link" data-id="6"><img src="https://i.ibb.co/JWvDkrZn/6.png" alt="Banner 6" class="slide-img"></a>
+            <a href="#redpacket-7" class="slide-link" data-id="7"><img src="https://i.ibb.co/zVyj8kFP/7.png" alt="Banner 7" class="slide-img"></a>
+            <a href="#redpacket-8" class="slide-link" data-id="8"><img src="https://i.ibb.co/7Nyn6D4W/8.png" alt="Banner 8" class="slide-img"></a>
+            <a href="#redpacket-9" class="slide-link" data-id="9"><img src="https://i.ibb.co/F46byhWm/9.png" alt="Banner 9" class="slide-img"></a>
+            <a href="#redpacket-10" class="slide-link" data-id="10"><img src="https://i.ibb.co/zTZ4qkBY/10.png" alt="Banner 10" class="slide-img"></a>
+          </div>
+          <!-- 轮播组3 -->
+          <div class="banner-slide">
+            <a href="#redpacket-11" class="slide-link" data-id="11"><img src="https://i.ibb.co/7m21bDH/11.png" alt="Banner 11" class="slide-img"></a>
+            <a href="#redpacket-12" class="slide-link" data-id="12"><img src="https://i.ibb.co/7NQ656v8/12.png" alt="Banner 12" class="slide-img"></a>
+            <a href="#redpacket-13" class="slide-link" data-id="13"><img src="https://i.ibb.co/wFqxTsmC/13.png" alt="Banner 13" class="slide-img"></a>
+            <a href="#redpacket-14" class="slide-link" data-id="14"><img src="https://i.ibb.co/0j2pXcNT/14.png" alt="Banner 14" class="slide-img"></a>
+            <a href="#redpacket-15" class="slide-link" data-id="15"><img src="https://i.ibb.co/3m13cqPp/15.png" alt="Banner 15" class="slide-img"></a>
+          </div>
+        </div>
+        <!-- 控制按钮 -->
+        <button class="control-btn prev-btn">&lt;</button>
+        <button class="control-btn next-btn">&gt;</button>
+        <!-- 指示器 -->
+        <div class="indicators">
+          <div class="indicator-dot active"></div>
+          <div class="indicator-dot"></div>
+          <div class="indicator-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 卡片预览区域 -->
+  <section class="py-10 bg-white">
+    <div class="container mx-auto px-4">
+      <div id="card-container">
+        <h3 class="text-2xl md:text-3xl font-bold text-center mb-8">卡片预览</h3>
+        <div class="card-list">
+          <!-- 卡片内容将由JavaScript动态生成 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 页面加载完成后执行
+    window.onload = function() {
+      // 初始化Banner轮播
+      initBanner();
+      
+      // 初始化卡片
+      initCards();
+      
+      // 添加防盗加密措施
+      initAntiTheft();
+    };
+    
+    // Banner轮播初始化
+    function initBanner() {
+      var container = document.querySelector('.banner-container');
+      var wrapper = document.querySelector('.banner-wrapper');
+      var slides = document.querySelectorAll('.banner-slide');
+      var prevBtn = document.querySelector('.prev-btn');
+      var nextBtn = document.querySelector('.next-btn');
+      var dots = document.querySelectorAll('.indicator-dot');
+      var slideLinks = document.querySelectorAll('.slide-link');
+      var currentIndex = 0;
+      var slideCount = slides.length;
+      var autoPlayTimer = null;
+      
+      // 设置wrapper宽度
+      wrapper.style.width = slideCount * 100 + '%';
+      
+      // 切换到指定幻灯片
+      function goToSlide(index) {
+        currentIndex = index;
+        wrapper.style.transform = 'translateX(-' + (currentIndex * 100 / slideCount) + '%)';
+        
+        // 更新指示器
+        for (var i = 0; i < dots.length; i++) {
+          dots[i].classList.remove('active');
+          if (i === currentIndex) {
+            dots[i].classList.add('active');
+          }
+        }
+      }
+      
+      // 上一张
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+        goToSlide(currentIndex);
+      }
+      
+      // 下一张
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slideCount;
+        goToSlide(currentIndex);
+      }
+      
+      // 开始自动播放
+      function startAutoPlay() {
+        autoPlayTimer = setInterval(nextSlide, 5000);
+      }
+      
+      // 停止自动播放
+      function stopAutoPlay() {
+        clearInterval(autoPlayTimer);
+      }
+      
+      // 平滑滚动到指定位置
+      function scrollToElement(elementId) {
+        var element = document.getElementById(elementId);
+        if (element) {
+          var targetPosition = element.getBoundingClientRect().top + window.pageYOffset - 100;
+          var startPosition = window.pageYOffset;
+          var distance = targetPosition - startPosition;
+          var duration = 500;
+          var startTime = null;
+          
+          function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            var timeElapsed = currentTime - startTime;
+            var run = ease(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+          }
+          
+          function ease(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+          }
+          
+          requestAnimationFrame(animation);
+          return false;
+        }
+        return true;
+      }
+      
+      // 事件监听
+      prevBtn.onclick = function(e) {
+        e.preventDefault();
+        prevSlide();
+      };
+      
+      nextBtn.onclick = function(e) {
+        e.preventDefault();
+        nextSlide();
+      };
+      
+      // 指示器点击
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].onclick = function(e) {
+          e.preventDefault();
+          var index = Array.prototype.indexOf.call(dots, this);
+          goToSlide(index);
+        };
+      }
+      
+      // 轮播图片点击跳转
+      for (var j = 0; j < slideLinks.length; j++) {
+        slideLinks[j].onclick = function(e) {
+          e.preventDefault();
+          var id = this.getAttribute('data-id');
+          scrollToElement('redpacket-' + id);
+        };
+      }
+      
+      // 鼠标悬停事件
+      container.onmouseenter = stopAutoPlay;
+      container.onmouseleave = startAutoPlay;
+      
+      // 启动自动播放
+      startAutoPlay();
+    }
+    
+    // 卡片初始化
+    function initCards() {
+      // 卡片数据数组
+      var cardList = [
+        { imgUrl: "https://i.ibb.co/1fsSp9g8/1.png", title: "可爱猫咪", desc: "温馨可爱的猫咪形象，传递温暖祝福" },
+        { imgUrl: "https://i.ibb.co/1fZNkWdP/2.png", title: "邮票花卉", desc: "经典邮票设计，展现传统与优雅" },
+        { imgUrl: "https://i.ibb.co/sJjkjNJj/3.png?v=1", title: "可爱兔子", desc: "萌系兔子形象，传递甜蜜祝福" },
+        { imgUrl: "https://i.ibb.co/5gQL5f8F/4.png?v=1", title: "荔枝吉祥", desc: "荔枝图案设计，寓意吉祥如意" },
+        { imgUrl: "https://i.ibb.co/8D6YtVX7/5.png?v=1", title: "莲花", desc: "睡莲，简约大方，寓意吉祥如意" },
+        { imgUrl: "https://i.ibb.co/JWvDkrZn/6.png?v=1", title: "姑苏谣", desc: "古风歌词设计，搭配背景，传统与现代结合" },
+        { imgUrl: "https://i.ibb.co/zVyj8kFP/7.png?v=1", title: "如你", desc: "卡通风格，可爱歌词形象，温馨可爱" },
+        { imgUrl: "https://i.ibb.co/7Nyn6D4W/8.png?v=1", title: "古城谣", desc: "歌词设计，搭配红色背景，传统与现代结合" },
+        { imgUrl: "https://i.ibb.co/F46byhWm/9.png?v=1", title: "古风1", desc: "古风意境设计，搭配背景，传统与现代结合" },
+        { imgUrl: "https://i.ibb.co/zTZ4qkBY/10.png?v=1", title: "古风2", desc: "古风意境，搭配背景，传统与现代结合" },
+        { imgUrl: "https://i.ibb.co/7m21bDH/11.png?v=1", title: "昔年快乐", desc: "精美设计，传递温馨祝福" },
+        { imgUrl: "https://i.ibb.co/7NQ656v8/12.png?v=1", title: "新年快乐", desc: "精美设计，传递温馨祝福" },
+        { imgUrl: "https://i.ibb.co/wFqxTsmC/13.png?v=1", title: "人生1", desc: "精美设计，传递温馨祝福" },
+        { imgUrl: "https://i.ibb.co/0j2pXcNT/14.png?v=1", title: "人生2", desc: "精美设计，传递温馨祝福" },
+        { imgUrl: "https://i.ibb.co/3m13cqPp/15.png?v=1", title: "呆胖鸟", desc: "精美设计，传递温馨祝福" }
+      ];
+      
+      var cardListElement = document.querySelector('.card-list');
+      
+      // 生成卡片HTML
+      for (var i = 0; i < cardList.length; i++) {
+        var item = cardList[i];
+        var idAttribute = ' id="redpacket-' + (i + 1) + '"';
+        var cardHTML = '<div class="card"' + idAttribute + ' data-id="' + (i + 1) + '">' +
+                      '<img src="' + item.imgUrl + '" alt="' + item.title + '" class="card-img">' +
+                      '<div class="card-content">' +
+                      '<h3>' + item.title + '</h3>' +
+                      '<p>' + item.desc + '</p>' +
+                      '</div>' +
+                      '</div>';
+        
+        cardListElement.innerHTML += cardHTML;
+      }
+    }
+    
+    // 防盗加密初始化
+    function initAntiTheft() {
+      // 防止右键菜单
+      document.oncontextmenu = function() {
+        alert('禁止右键操作，保护原创内容');
+        return false;
+      };
+      
+      // 防止选择文本
+      document.onselectstart = function() {
+        return false;
+      };
+      
+      // 防止图片拖拽
+      document.ondragstart = function() {
+        return false;
+      };
+      
+      // 防止快捷键
+      document.onkeydown = function(e) {
+        // 防止Ctrl+S保存
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          alert('禁止保存页面');
+          return false;
+        }
+        // 防止Ctrl+U查看源码
+        if ((e.ctrlKey || e.metaKey) && e.key === 'u') {
+          e.preventDefault();
+          alert('禁止查看源码');
+          return false;
+        }
+        // 防止Ctrl+C复制
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+          if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            return true;
+          }
+          e.preventDefault();
+          alert('禁止复制内容');
+          return false;
+        }
+        // 防止F12开发者工具
+        if (e.key === 'F12') {
+          e.preventDefault();
+          alert('禁止使用开发者工具');
+          return false;
+        }
+      };
+      
+      // 防止页面被iframe嵌套
+      if (window.top !== window.self) {
+        window.top.location = window.self.location;
+      }
+      
+      // 添加页面水印
+      addWatermark();
+    }
+    
+    // 添加水印
+    function addWatermark() {
+      var watermark = document.createElement('div');
+      watermark.id = 'watermark';
+      watermark.style.position = 'fixed';
+      watermark.style.top = '0';
+      watermark.style.left = '0';
+      watermark.style.width = '100%';
+      watermark.style.height = '100%';
+      watermark.style.pointerEvents = 'none';
+      watermark.style.zIndex = '9999';
+      watermark.style.opacity = '0.05';
+      watermark.style.fontSize = '40px';
+      watermark.style.fontWeight = 'bold';
+      watermark.style.color = '#000';
+      watermark.style.whiteSpace = 'nowrap';
+      watermark.style.transform = 'rotate(-45deg)';
+      watermark.style.transformOrigin = 'center';
+      watermark.style.textAlign = 'center';
+      watermark.style.lineHeight = '300px';
+      watermark.innerHTML = '微信红包封面 原创内容 禁止盗用';
+      
+      document.body.appendChild(watermark);
+    }
+  </script>
+</body>
+</html>

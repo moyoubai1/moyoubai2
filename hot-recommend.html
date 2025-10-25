@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热门推荐 - 微信红包封面</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            letter-spacing: 0.02em;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .py-6 {
+            padding: 3rem 0;
+        }
+        .py-10 {
+            padding: 5rem 0;
+        }
+        .bg-white {
+            background-color: #fff;
+        }
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+        .text-3xl {
+            font-size: 1.875rem;
+        }
+        .md\:text-2xl {
+            font-size: 1.5rem;
+        }
+        .md\:text-3xl {
+            font-size: 1.875rem;
+        }
+        .font-bold {
+            font-weight: 700;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+        .mb-10 {
+            margin-bottom: 2.5rem;
+        }
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        
+        /* Banner样式 - 添加到现有样式中 */
+        .banner-container {
+            position: relative;
+        }
+        .banner-slide {
+            position: relative;
+        }
+        .slide-img {
+            background-color: #ff3b30;
+        }
+        .contact-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 59, 48, 0.8);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1; /* 置于最底层 */
+            opacity: 1; /* 始终显示 */
+        }
+        
+        /* 顶部导航样式 */
+        .top-nav {
+            background-color: #ff3b30;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #ffd700;
+        }
+        .nav-link.active {
+            color: #ffd700;
+        }
+        .nav-search {
+            padding: 8px 16px;
+            border: 1px solid #ff9e9e;
+            border-radius: 20px;
+            font-size: 14px;
+            width: 200px;
+            background-color: rgba(255,255,255,0.9);
+        }
+        
+        /* 热门推荐区域 */
+        .hot-recommend-section {
+            background-color: #fff;
+            padding: 40px 0;
+        }
+        .hot-recommend-title {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .hot-recommend-subtitle {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+        }
+        
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 红包卡片样式 */
+        .redpacket-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #f0f0f0;
+        }
+        .redpacket-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        .redpacket-body {
+            padding: 0;
+        }
+        .redpacket-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .redpacket-info {
+            padding: 20px;
+        }
+        .redpacket-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .redpacket-price {
+            font-size: 16px;
+            color: #ff3b30;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .redpacket-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 24px;
+            background-color: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: #ff4b40;
+        }
+        
+        /* 底部样式 */
+        .footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+        .footer-text {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .nav-search {
+                width: 100%;
+                max-width: 300px;
+            }
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+                padding: 0 15px;
+            }
+            .redpacket-image {
+                height: 150px;
+            }
+            .hot-recommend-title {
+                font-size: 24px;
+            }
+            .hot-recommend-subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="top-nav">
+        <div class="container nav-content">
+            <div class="nav-logo">微信红包封面</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="hot-recommend.html" class="nav-link active">热门推荐</a>
+                <a href="new-releases.html" class="nav-link">最新上架</a>
+                <a href="about-us.html" class="nav-link">关于我们</a>
+            </div>
+            <input type="text" class="nav-search" placeholder="搜索红包封面..." id="searchInput">
+        </div>
+    </header>
+    
+    <!-- Banner静态展示 -->
+    <div class="banner-container" style="height: 400px; position: relative;">
+        <div style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #e6373d; position: relative; z-index: 2;">
+            <div style="color: white; font-size: 24px; margin-bottom: 20px;">热门推荐</div>
+            <div style="color: white; text-align: center; font-size: 16px;">联系方式：moyoubai@sina.cn，微信号：SU19942015</div>
+        </div>
+    </div>
+    
+    <!-- 热门推荐区域 -->
+    <section class="hot-recommend-section">
+        <div class="container">
+            <h2 class="hot-recommend-title">热门推荐</h2>
+            <p class="hot-recommend-subtitle">精选优质红包封面，为您的祝福增添独特魅力</p>
+            
+            <!-- 红包卡片网格 -->
+            <div class="card-grid">
+                <!-- 红包卡片1 -->
+                <div class="redpacket-card" data-id="1">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/1fsSp9g8/1.png" alt="可爱猫咪" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">可爱猫咪</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">温馨可爱的猫咪形象，传递温暖祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_y7BiwfyB6wU&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片2 -->
+                <div class="redpacket-card" data-id="2">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/1fZNkWdP/2.png" alt="邮票花卉" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">邮票花卉</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">经典邮票设计，展现传统与优雅</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_vsz6isricJC&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片3 -->
+                <div class="redpacket-card" data-id="3">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/sJjkjNJj/3.png" alt="可爱兔子" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">可爱兔子</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">萌系兔子形象，传递甜蜜祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_og6GA2z0cBP&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片4 -->
+                <div class="redpacket-card" data-id="4">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/5gQL5f8F/4.png" alt="荔枝吉祥" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">荔枝吉祥</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">荔枝图案设计，寓意吉祥如意</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_yo566nz1TcK&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片5 -->
+                <div class="redpacket-card" data-id="5">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/8D6YtVX7/5.png" alt="莲花" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">莲花</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">睡莲，简约大方，寓意吉祥如意</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so9ktdJGjCR&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片6 -->
+                <div class="redpacket-card" data-id="6">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/JWvDkrZn/6.png" alt="姑苏谣" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">姑苏谣</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">古风歌词设计，搭配背景，传统与现代结合</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_ufoqBFyjGfA&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片7 -->
+                <div class="redpacket-card" data-id="7">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/zVyj8kFP/7.png" alt="如你" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">如你</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">卡通风格，可爱歌词形象，温馨可爱</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_rW4vzU3gJLD&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片8 -->
+                <div class="redpacket-card" data-id="8">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/7Nyn6D4W/8.png" alt="古城谣" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">古城谣</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">歌词设计，搭配红色背景，传统与现代结合</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_cpBCVQt0M4V&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片9 -->
+                <div class="redpacket-card" data-id="9">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/F46byhWm/9.png" alt="古风1" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">古风1</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">古风意境设计，搭配背景，传统与现代结合</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_so6c3jkuvyS&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片10 -->
+                <div class="redpacket-card" data-id="10">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/zTZ4qkBY/10.png" alt="古风2" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">古风2</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">古风意境，搭配背景，传统与现代结合</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_b3d4t921BgP&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片11 -->
+                <div class="redpacket-card" data-id="11">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/7m21bDH/11.png" alt="昔年快乐" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">昔年快乐</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">精美设计，传递温馨祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_hzhVUaJb6IS&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片12 -->
+                <div class="redpacket-card" data-id="12">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/7NQ656v8/12.png" alt="新年快乐" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">新年快乐</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">精美设计，传递温馨祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_fDs4xOyFw0M&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片13 -->
+                <div class="redpacket-card" data-id="13">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/wFqxTsmC/13.png" alt="人生1" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">人生1</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">精美设计，传递温馨祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_pu7n9ZyQKEO&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片14 -->
+                <div class="redpacket-card" data-id="14">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/0j2pXcNT/14.png" alt="人生2" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">人生2</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">精美设计，传递温馨祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_isK1OXy0NwJ&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 红包卡片15 -->
+                <div class="redpacket-card" data-id="15">
+                    <div class="redpacket-body">
+                        <img src="https://i.ibb.co/3m13cqPp/15.png" alt="呆胖鸟" class="redpacket-image">
+                        <div class="redpacket-info">
+                            <h3 class="redpacket-title">呆胖鸟</h3>
+                            <p class="redpacket-price">35微豆</p>
+                            <p class="redpacket-desc">精美设计，传递温馨祝福</p>
+                            <a href="https://support.weixin.qq.com/cgi-bin/mmsupport-bin/showredpacket?purchase_token=NPC_vo4FpoWCs0P&is_sell=1" target="_blank" class="btn-primary">立即购买</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 底部信息 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">由莫攸白制作并发行@2025</p>
+        </div>
+    </footer>
+    
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        
+        function filterRedpackets(searchTerm) {
+            const cards = document.querySelectorAll('.redpacket-card');
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.redpacket-title').textContent.toLowerCase();
+                const desc = card.querySelector('.redpacket-desc').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // 显示搜索结果数量
+            let resultInfo = document.getElementById('searchResultInfo');
+            if (!resultInfo) {
+                resultInfo = document.createElement('p');
+                resultInfo.id = 'searchResultInfo';
+                resultInfo.className = 'text-center mb-6 text-gray-600';
+                const container = document.querySelector('.hot-recommend-section .container');
+                const grid = document.querySelector('.card-grid');
+                container.insertBefore(resultInfo, grid);
+            }
+            
+            resultInfo.textContent = searchTerm ? `找到 ${visibleCount} 个相关结果` : '';
+        }
+        
+        // 回车键搜索
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase().trim();
+                filterRedpackets(searchTerm);
+            }
+        });
+        
+        // 实时搜索
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            filterRedpackets(searchTerm);
+        });
+            
+            // 为所有卡片添加点击事件（除了按钮区域）
+            var redpacketCards = document.querySelectorAll('.redpacket-card');
+            redpacketCards.forEach(function(card) {
+                card.addEventListener('click', function(e) {
+                    // 如果点击的是按钮，不执行卡片的点击事件
+                    if (e.target.closest('.btn-primary')) {
+                        return;
+                    }
+                    
+                    // 获取卡片的购买链接
+                    var buyLink = card.querySelector('.btn-primary').getAttribute('href');
+                    if (buyLink) {
+                        // 在新窗口打开微信链接
+                        window.open(buyLink, '_blank');
+                        // 同时提醒用户使用微信打开
+                        alert('请在微信中打开此链接以购买红包封面');
+                    }
+                });
+            });
+            
+            // 为按钮添加专门的点击事件提醒
+            var buyButtons = document.querySelectorAll('.btn-primary');
+            buyButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    // 阻止冒泡，避免触发卡片的点击事件
+                    e.stopPropagation();
+                    // 提醒用户使用微信打开
+                    alert('请在微信中打开此链接以购买红包封面');
+                });
+            });
+            
+            // 防盗加密措施 - 与主页面保持一致
+            
+            // 1. 禁用右键菜单
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+            
+            // 2. 防止图片拖拽复制
+            document.querySelectorAll('img').forEach(function(img) {
+                img.addEventListener('dragstart', function(e) {
+                    e.preventDefault();
+                });
+            });
+            
+            // 3. 拦截常见快捷键
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'i' || e.key === 'I' || e.key === 'u' || e.key === 'U')) {
+                    e.preventDefault();
+                }
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                }
+            });
+            
+            // 4. 添加水印
+            var watermark = document.createElement('div');
+            watermark.style.position = 'fixed';
+            watermark.style.top = '0';
+            watermark.style.left = '0';
+            watermark.style.width = '100%';
+            watermark.style.height = '100%';
+            watermark.style.pointerEvents = 'none';
+            watermark.style.zIndex = '9999';
+            watermark.style.opacity = '0.05';
+            watermark.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" viewBox=\"0 0 200 200\"%3E%3Ctext x=\"10\" y=\"100\" font-family=\"Arial\" font-size=\"20\" fill=\"%23000\" transform=\"rotate(-45, 100, 100)\"%3E微信红包封面%3C/text%3E%3C/svg%3E")';
+            document.body.appendChild(watermark);
+            
+            // 防止水印被移除
+            new MutationObserver(function(mutations) {
+                if (!document.body.contains(watermark)) {
+                    document.body.appendChild(watermark);
+                }
+            }).observe(document.body, { childList: true });
+            
+            // 5. 检测开发者工具
+            var devtools = /./;
+            devtools.toString = function() {
+                alert('检测到开发者工具，请遵守法律法规，尊重版权！');
+                return '';
+            };
+            console.log('%c', devtools);
+            
+            // 6. 防止iframe嵌套
+            if (window.top !== window.self) {
+                window.top.location = window.self.location;
+            }
+        });
+    </script>
+</body>
+</html>

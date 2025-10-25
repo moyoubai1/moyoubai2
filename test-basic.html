@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础验证测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #test-output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            min-height: 200px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript语法验证测试</h1>
+        <div id="test-output">
+            <p>测试结果将在这里显示...</p>
+        </div>
+    </div>
+
+    <script>
+        // 基础JavaScript语法测试
+        function runTests() {
+            var output = document.getElementById('test-output');
+            output.innerHTML = '';
+            
+            // 测试变量声明和赋值
+            var testVar = 'Hello World';
+            appendOutput('变量测试: ' + testVar);
+            
+            // 测试条件语句
+            var num = 10;
+            if (num > 5) {
+                appendOutput('条件测试: 通过');
+            } else {
+                appendOutput('条件测试: 失败');
+            }
+            
+            // 测试循环
+            var sum = 0;
+            for (var i = 0; i < 5; i++) {
+                sum = sum + i;
+            }
+            appendOutput('循环测试: 1+2+3+4 = ' + sum);
+            
+            // 测试数组操作
+            var arr = ['a', 'b', 'c'];
+            var arrStr = '';
+            for (var j = 0; j < arr.length; j++) {
+                arrStr = arrStr + arr[j] + ' ';
+            }
+            appendOutput('数组测试: ' + arrStr);
+            
+            // 测试对象操作
+            var obj = {name: '测试', value: 100};
+            appendOutput('对象测试: ' + obj.name + ' = ' + obj.value);
+            
+            // 测试函数调用
+            function testFunction(param) {
+                return '函数参数: ' + param;
+            }
+            appendOutput(testFunction('成功'));
+            
+            // 测试DOM操作
+            var newDiv = document.createElement('div');
+            newDiv.innerHTML = '<strong>DOM操作测试: 成功</strong>';
+            output.appendChild(newDiv);
+            
+            appendOutput('<br><strong>所有测试完成 - 基础JavaScript语法正常工作</strong>');
+        }
+        
+        function appendOutput(text) {
+            var output = document.getElementById('test-output');
+            var p = document.createElement('p');
+            p.innerHTML = text;
+            output.appendChild(p);
+        }
+        
+        // 页面加载时执行测试
+        window.onload = function() {
+            runTests();
+        }
+    </script>
+</body>
+</html>

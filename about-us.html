@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 微信红包封面</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #fff; /* 全局字体白色 */
+            background-color: #e6373d; /* 背景红色 */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            letter-spacing: 0.02em;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .py-6 {
+            padding: 24px 0;
+        }
+        .py-10 {
+            padding: 40px 0;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-2xl {
+            font-size: 24px;
+        }
+        .md\:text-3xl {
+            font-size: 30px;
+        }
+        .text-4xl {
+            font-size: 36px;
+        }
+        .font-bold {
+            font-weight: bold;
+        }
+        .mb-4 {
+            margin-bottom: 16px;
+        }
+        .mb-8 {
+            margin-bottom: 32px;
+        }
+        .mb-10 {
+            margin-bottom: 40px;
+        }
+        .p-6 {
+            padding: 24px;
+        }
+        .rounded-lg {
+            border-radius: 8px;
+        }
+        
+        /* 顶部导航样式 */
+        .top-nav {
+            background-color: #c62828; /* 稍深一点的红色 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #ffd700;
+        }
+        .nav-link.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .nav-search {
+            padding: 8px 16px;
+            border: 1px solid #ff9e9e;
+            border-radius: 20px;
+            font-size: 14px;
+            width: 200px;
+            background-color: rgba(255,255,255,0.9);
+        }
+        
+        /* 联系方式按钮样式 - 右上角 */
+        .contact-section {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 4px solid #fff;
+            border-radius: 10px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+        .contact-section:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .contact-button-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0;
+        }
+        
+        /* 关于我们内容区域 */
+        .about-section {
+            flex: 1;
+            padding: 40px 0;
+        }
+        .about-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        /* 联系方式按钮样式 */
+        .contact-button {
+            display: inline-block;
+            background-color: #ffd700;
+            color: #e6373d;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin: 20px auto;
+            display: block;
+            width: fit-content;
+        }
+        .contact-button:hover {
+            background-color: #ffed4a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            color: #e6373d;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            width: 320px;
+            position: relative;
+            animation: modalFade 0.3s ease-out;
+        }
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-contact-info {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #e6373d;
+            transition: color 0.3s;
+        }
+        .close-modal:hover {
+            color: #c62828;
+        }
+        .about-content h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 32px;
+        }
+        .about-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .about-content ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .about-content li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: #c62828;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        .footer-content {
+            text-align: center;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .contact-info {
+                font-size: 18px;
+            }
+            .about-content {
+                padding: 20px;
+            }
+            .about-content h2 {
+                font-size: 28px;
+            }
+            .about-content p,
+            .about-content li {
+                font-size: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .contact-info {
+                font-size: 16px;
+            }
+            .about-content h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="top-nav">
+        <div class="container nav-content">
+            <div class="nav-logo">🧧 微信红包封面</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="hot-recommend.html" class="nav-link">热门推荐</a>
+                <a href="new-releases.html" class="nav-link">最新上架</a>
+                <a href="about-us.html" class="nav-link active">关于我们</a>
+            </div>
+            <input type="text" class="nav-search" placeholder="搜索红包封面..." id="searchInput">
+        </div>
+    </header>
+    
+    <!-- 联系方式按钮 - 右上角点击弹出 -->
+    <section class="contact-section" onclick="openContactModal()">
+        <p class="contact-button-text">📞 联系我们</p>
+    </section>
+    
+    <!-- 关于我们内容 -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2>关于我们</h2>
+                <p>欢迎来到微信红包封面精选平台！我们致力于为用户提供高质量、富有创意的微信红包封面设计，让您的红包在节日和特殊时刻更具个性和魅力。</p>
+                
+                <h3 class="text-2xl font-bold mt-4 mb-2">我们的愿景</h3>
+                <p>成为微信红包封面领域的领先品牌，通过创新设计和优质服务，为用户创造更加丰富多样的数字表达方式。</p>
+                
+                <h3 class="text-2xl font-bold mt-4 mb-2">我们的优势</h3>
+                <ul>
+                    <li>专业设计师团队，不断推出创意作品</li>
+                    <li>严格的质量控制，确保每个封面都精美绝伦</li>
+                    <li>丰富的主题选择，满足不同用户的个性化需求</li>
+                    <li>完善的客户服务，提供专业的技术支持</li>
+                </ul>
+                
+                <h3 class="text-2xl font-bold mt-4 mb-2">服务理念</h3>
+                <p>用户至上，创意无限。我们始终将用户需求放在首位，不断创新设计理念，为用户提供更加优质的产品和服务体验。</p>
+                
+                <h3 class="text-2xl font-bold mt-4 mb-2">联系我们</h3>
+                <p>如果您对我们的产品有任何疑问或建议，或者希望进行商务合作，欢迎随时通过以下方式联系我们：</p>
+                <ul>
+                    <li>邮箱：moyoubai@sina.cn</li>
+                    <li>微信号：SU19942015</li>
+                </ul>
+                
+                <!-- 联系我们按钮 -->
+                <button class="contact-button" onclick="openContactModal()">点击查看联系方式</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 微信红包封面 - 精选设计</p>
+            <p>联系方式：moyoubai@sina.cn | 微信号：SU19942015</p>
+        </div>
+    </footer>
+    
+    <!-- 联系方式弹窗 -->
+    <div class="modal" id="contactModal" onclick="closeContactModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeContactModal()">&times;</span>
+            <div class="modal-contact-info">
+                <p>🐱 联系方式：moyoubai@sina.cn</p>
+                <p>🐶 微信号：SU19942015</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 搜索功能
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    if (searchTerm) {
+                        alert('搜索功能待实现：' + searchTerm);
+                    }
+                }
+            });
+        });
+        
+        // 打开联系方式弹窗
+        function openContactModal() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }
+        
+        // 关闭联系方式弹窗
+        function closeContactModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+        
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeContactModal();
+            }
+        });
+    </script>
+</body>
+</html>

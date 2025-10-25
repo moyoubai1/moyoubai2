@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试轮播</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .banner-container {
+            width: 800px;
+            height: 300px;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .banner-wrapper {
+            display: flex;
+            width: 2400px;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        .banner-slide {
+            width: 800px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .slide1 { background-color: #ffcccc; }
+        .slide2 { background-color: #ccffcc; }
+        .slide3 { background-color: #ccccff; }
+        .control-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+        .indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+        .dot.active { background-color: white; }
+    </style>
+</head>
+<body>
+    <div class="banner-container">
+        <div class="banner-wrapper">
+            <div class="banner-slide slide1">轮播1</div>
+            <div class="banner-slide slide2">轮播2</div>
+            <div class="banner-slide slide3">轮播3</div>
+        </div>
+        <button class="control-btn prev-btn">&lt;</button>
+        <button class="control-btn next-btn">&gt;</button>
+        <div class="indicators">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        // 轮播功能
+        var currentIndex = 0;
+        var totalSlides = 3;
+        var bannerWrapper = document.querySelector('.banner-wrapper');
+        var dots = document.querySelectorAll('.dot');
+        var timer;
+
+        // 切换轮播
+        function goToSlide(index) {
+            currentIndex = index;
+            bannerWrapper.style.transform = 'translateX(-' + (index * 800) + 'px)';
+            
+            // 更新指示器
+            dots.forEach(function(dot, i) {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // 下一张
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(currentIndex);
+        }
+
+        // 上一张
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            goToSlide(currentIndex);
+        }
+
+        // 自动轮播
+        function startAutoPlay() {
+            timer = setInterval(nextSlide, 3000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(timer);
+        }
+
+        // 事件绑定
+        document.querySelector('.prev-btn').addEventListener('click', prevSlide);
+        document.querySelector('.next-btn').addEventListener('click', nextSlide);
+        
+        dots.forEach(function(dot, index) {
+            dot.addEventListener('click', function() {
+                goToSlide(index);
+            });
+        });
+
+        // 鼠标悬停暂停，离开继续
+        var container = document.querySelector('.banner-container');
+        container.addEventListener('mouseenter', stopAutoPlay);
+        container.addEventListener('mouseleave', startAutoPlay);
+
+        // 启动自动轮播
+        startAutoPlay();
+        
+        console.log('轮播组件已加载');
+    </script>
+</body>
+</html>

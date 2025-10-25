@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>极简红包封面测试</title>
+  <style>
+    body {
+      text-align: center;
+      padding: 50px;
+      font-family: Arial, sans-serif;
+    }
+    .redpacket {
+      width: 200px;
+      margin: 0 auto;
+      border: 2px solid blue;
+      padding: 10px;
+    }
+    .redpacket img {
+      width: 100%;
+      height: 200px;
+      border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h1>极简红包封面测试</h1>
+  
+  <!-- 直接使用内联图片标签 -->
+  <div class="redpacket">
+    <img src="data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%23FF6B6B'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3E测试封面%3C/text%3E%3C/svg%3E" alt="测试封面">
+    <h3>测试封面</h3>
+  </div>
+  
+  <script>
+    console.log('极简测试页面加载');
+    // 检查图片加载状态
+    const img = document.querySelector('img');
+    img.onload = function() {
+      console.log('✅ 图片加载成功');
+    };
+    img.onerror = function() {
+      console.error('❌ 图片加载失败');
+    };
+  </script>
+</body>
+</html>

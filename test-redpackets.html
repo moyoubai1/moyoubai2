@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>红包封面测试</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    .redpacket-item {
+      border: 1px solid blue;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+    }
+    .redpacket-image {
+      width: 200px;
+      height: 200px;
+      border: 1px solid red;
+    }
+    .card {
+      border: 1px solid green;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+    }
+    .card-img {
+      width: 200px;
+      height: 200px;
+      border: 1px solid orange;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">红包封面测试页面</h1>
+    
+    <h2 class="text-2xl font-bold mb-4">直接DOM渲染的红包封面</h2>
+    <div id="redpacket-container"></div>
+    
+    <h2 class="text-2xl font-bold mb-4 mt-12">Vue组件渲染的红包封面</h2>
+    <div id="card-container"></div>
+  </div>
+
+  <script>
+    // 红包封面数据 - 使用内联SVG
+    const redpackets = [
+      {
+        id: 1,
+        name: "可爱猫咪",
+        image: "data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%23f00'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3E猫咪封面%3C/text%3E%3C/svg%3E"
+      },
+      {
+        id: 2,
+        name: "邮票花卉",
+        image: "data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%2300f'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3E花卉封面%3C/text%3E%3C/svg%3E"
+      }
+    ];
+
+    // 直接DOM渲染
+    const container = document.getElementById('redpacket-container');
+    redpackets.forEach(item => {
+      const redpacketItem = document.createElement('div');
+      redpacketItem.className = 'redpacket-item';
+      
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.className = 'redpacket-image';
+      img.alt = item.name;
+      img.onload = function() {
+        console.log(`✅ 直接DOM - ${item.name} 图片加载成功`);
+      };
+      img.onerror = function() {
+        console.error(`❌ 直接DOM - ${item.name} 图片加载失败`);
+      };
+      
+      const name = document.createElement('h3');
+      name.textContent = item.name;
+      
+      redpacketItem.appendChild(img);
+      redpacketItem.appendChild(name);
+      container.appendChild(redpacketItem);
+    });
+
+    // Vue组件渲染
+    new Vue({
+      el: '#card-container',
+      data: {
+        cardList: [
+          {
+            imgUrl: "data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%230f0'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='20' fill='black' text-anchor='middle' dominant-baseline='middle'%3EVue猫咪%3C/text%3E%3C/svg%3E",
+            title: "Vue猫咪"
+          },
+          {
+            imgUrl: "data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='200' height='200' fill='%23ff0'/%3E%3Ctext x='100' y='100' font-family='Arial' font-size='20' fill='black' text-anchor='middle' dominant-baseline='middle'%3EVue花卉%3C/text%3E%3C/svg%3E",
+            title: "Vue花卉"
+          }
+        ]
+      },
+      template: `
+        <div>
+          <div class="card" v-for="(item, index) in cardList" :key="index">
+            <img :src="item.imgUrl" :alt="item.title" class="card-img" @load="handleImageLoad(index)" @error="handleImageError(index)">
+            <h3>{{ item.title }}</h3>
+          </div>
+        </div>
+      `,
+      methods: {
+        handleImageLoad(index) {
+          console.log(`✅ Vue组件 - 图片${index + 1}加载成功`);
+        },
+        handleImageError(index) {
+          console.error(`❌ Vue组件 - 图片${index + 1}加载失败`);
+        }
+      },
+      mounted() {
+        console.log('Vue组件已挂载');
+      }
+    });
+  </script>
+</body>
+</html>
